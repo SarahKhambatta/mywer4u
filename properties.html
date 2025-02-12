@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeR4U SME SOLUTIONS</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
+
+  <!-- lightbox Gallery-->
+  <link rel="stylesheet" href="css/ekko-lightbox.css" />
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+      }
+      .header {
+          background-color: #004aad;
+          color: white;
+          padding: 20px;
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+      }
+      .header img {
+          height: 40px;
+      }
+      .container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          padding: 20px;
+      }
+      .card {
+          background-color: white;
+          width: 300px;
+          margin: 20px;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease-in-out;
+          position: relative;
+      }
+      .card:hover {
+          transform: scale(1.05);
+      }
+      .card img {
+          width: 250px;
+          height: 250px;
+          border-radius: 10px;
+      }
+      .card-title {
+          font-size: 20px;
+          font-weight: bold;
+          color: #ff7f00;
+          margin-top: 10px;
+      }
+      .card-desc {
+          font-size: 14px;
+          color: #555;
+          margin-top: 10px;
+      }
+      .card-price {
+          font-size: 18px;
+          font-weight: bold;
+          color: #004aad;
+          margin-top: 10px;
+      }
+      .btn {
+          display: block;
+          text-align: center;
+          padding: 10px;
+          background-color: #ff7f00;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+          margin-top: 10px;
+          transition: background 0.3s;
+          cursor: pointer;
+      }
+      .btn:hover {
+          background-color: #cc6600;
+      }
+      .details {
+          display: none;
+          margin-top: 10px;
+          padding: 10px;
+          background-color: #f9f9f9;
+          border-radius: 5px;
+          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+      }
+
+
+
+
+
+  
+  body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+  }
+  .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #000080;
+      padding: 10px 20px;
+  }
+  .navbar .logo {
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+  }
+  .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+  }
+  .navbar .nav-links li {
+      margin: 0 15px;
+  }
+  .navbar .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      transition: 0.3s;
+  }
+  .navbar .nav-links a:hover {
+      color: #f4a261;
+  }
+
+  .remove-btn {
+          background-color: red;
+          color: white;
+          padding: 10px;
+          border: none;
+          cursor: pointer;
+          text-align: center;
+      }
+
+  </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let properties = JSON.parse(localStorage.getItem("properties")) || [];
+  let propertyList = document.getElementById("propertyList");
+
+  // Predefined properties (Static)
+  let predefinedProperties = [
+      {
+          imageSrc: "images/s2.jpg",
+          title: "Industrial Plot at Khed Shivapur",
+          description: "Spacious industrial plot available for sale at Khed Shivapur, Pune.",
+          price: "₹13,50,000"
+      },
+      {
+          imageSrc: "images/slider-bg.jpg",
+          title: "Retail Space near Shivajinagar Railway Station",
+          description: "Prime retail space available for rent at Jangli Maharaj Path, Pune.",
+          price: "₹10,000/Monthly"
+      },
+      {
+          imageSrc: "images/b3.jpg",
+          title: "Luxury Apartment in Koregaon Park",
+          description: "Beautifully designed 3BHK apartment in Koregaon Park, Pune.",
+          price: "₹2,50,00,000"
+      },
+      {
+          imageSrc: "images/g6.jpg",
+          title: "Commercial Property in Viman Nagar",
+          description: "Prime commercial space for rent in Viman Nagar, Pune.",
+          price: "₹75,000/month"
+      },
+      {
+          imageSrc: "images/g3.jpg",
+          title: "Residential Flat in Koregaon Park",
+          description: "Luxurious 2BHK flat available for sale in Koregaon Park, Pune.",
+          price: "₹90,00,000"
+      },
+      {
+          imageSrc: "images/s1.jpg",
+          title: "Warehouse for Lease in Hinjewadi",
+          description: "Spacious warehouse available for lease at Hinjewadi, Pune.",
+          price: "₹1,20,000/month"
+      }
+  ];
+
+  // Ensure properties are not duplicated when loading
+  let allProperties = [...predefinedProperties, ...properties];
+
+  function removeProperty(index) {
+      allProperties.splice(index, 1);
+      let storedProperties = allProperties.slice(predefinedProperties.length);
+      localStorage.setItem("properties", JSON.stringify(storedProperties));
+      renderProperties();
+  }
+
+  function renderProperties() {
+      propertyList.innerHTML = "";
+
+      allProperties.forEach((prop, index) => {
+          let card = document.createElement("div");
+          card.classList.add("card");
+          card.innerHTML = `
+              <img src="${prop.imageSrc}" alt="Property Image" class="card-img">
+              <div class="card-title">${prop.title}</div>
+              <div class="card-desc">${prop.description}</div>
+              <div class="card-price">Price: ${prop.price}</div>
+              <button class="btn remove-btn" data-index="${index}">Remove</button>
+          `;
+          propertyList.appendChild(card);
+      });
+
+      document.querySelectorAll(".remove-btn").forEach(button => {
+          button.addEventListener("click", function () {
+              let index = this.getAttribute("data-index");
+              removeProperty(index);
+          });
+      });
+  }
+
+  renderProperties();
+});
+</script>
+  </head>
+<body>
+
+  <header class="header_section">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" href="index.html">
+          <span style="color: #f4f4f4; text-decoration: solid; font-size: larger;">
+            
+
+
+
+            <img src="images/web1.png" alt="Logo 1" height="55px" width="70px">
+           WER4U Featured Properties
+            <img src="images/web2.png" alt="Logo 2" height="55px" width="70px">
+
+
+
+          </span>
+        </a>
+        <div class="" id="">
+          <nav class="navbar">
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="service.html">Contact Us</a></li>
+                <li><a href="properties.html">Properties</a></li>
+                <li><a href="listing.html">Listing</a></li>
+                <li><a href="insurance.html">Insurance</a></li>
+            </ul>
+        </nav>
+
+        </div>
+      </nav>
+    </div>
+  </header>
+ 
+<br><br><br>
+
+      <!-- <div class="container">
+        <div class="card">
+            <img src="images/s2.jpg" alt="Property Image">
+            <div class="card-title">Industrial Plot at Khed Shivapur</div>
+            <div class="card-desc">Spacious industrial plot available for sale at Khed Shivapur, Pune.</div>
+            <div class="card-price">₹13,50,000</div>
+            <div class="btn remove-btn" onclick="removeProperty(0, this)">Remove</div>
+        </div>
+        <div class="card">
+            <img src="images/slider-bg.jpg" alt="Property Image">
+            <div class="card-title">Retail Space near Shivajinagar Railway Station</div>
+            <div class="card-desc">Prime retail space available for rent at Jangli Maharaj Path, Pune.</div>
+            <div class="card-price">₹10,000/Monthly</div>
+            <div class="btn remove-btn" onclick="removeProperty(1, this)">Remove</div>
+        </div>
+        <div class="card">
+            <img src="images/b3.jpg" alt="Property Image">
+            <div class="card-title">Luxury Apartment in Koregaon Park</div>
+            <div class="card-desc">Beautifully designed 3BHK apartment in Koregaon Park, Pune.</div>
+            <div class="card-price">₹2,50,00,000</div>
+            <div class="btn remove-btn" onclick="removeProperty(2, this)">Remove</div>
+        </div>
+        <div class="card">
+            <img src="images/g6.jpg" alt="Property Image">
+            <div class="card-title">Commercial Property in Viman Nagar</div>
+            <div class="card-desc">Prime commercial space for rent in Viman Nagar, Pune.</div>
+            <div class="card-price">₹75,000/month</div>
+            <div class="btn remove-btn" onclick="removeProperty(3, this)">Remove</div>
+        </div>
+        <div class="card">
+            <img src="images/g3.jpg" alt="Property Image">
+            <div class="card-title">Residential Flat in Koregaon Park</div>
+            <div class="card-desc">Luxurious 2BHK flat available for sale in Koregaon Park, Pune.</div>
+            <div class="card-price">₹90,00,000</div>
+            <div class="btn remove-btn" onclick="removeProperty(4, this)">Remove</div>
+        </div>
+        <div class="card">
+            <img src="images/s1.jpg" alt="Property Image">
+            <div class="card-title">Warehouse for Lease in Hinjewadi</div>
+            <div class="card-desc">Spacious warehouse available for lease at Hinjewadi, Pune.</div>
+            <div class="card-price">₹1,20,000/month</div>
+            <div class="btn remove-btn" onclick="removeProperty(index)">Remove</div>
+        </div>
+      </div>
+       -->
+      <div class="container" id="propertyList">
+        <!-- Property listings will be dynamically added here -->
+    </div>
+    
+
+    <section class="info_section ">
+      <div class="container">
+        <div class="row info_main_row">
+          <div class="col-md-6 col-lg-3">
+            <div class="info_insta">
+              <h4>
+                <a href="index.html" class="navbar-brand m-0 p-0">
+                  <span>
+                    WeR4U
+                  </span>
+                </a>
+              </h4>
+              <p class="mb-0">
+                Backed by a robust network of expert business associates with over 50 years of combined experience, WeR4U delivers practical, effective solutions and seamless execution.
+    
+    <br>Choose WeR4U to simplify your industrial journey and unlock new horizons of growth!</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="info_detail">
+              <h4>
+                Company
+              </h4>
+              <p class="mb-0">
+                Comprehensive, multi-dimensional services for the industrial and manufacturing sector:
+    <br>
+                End-to-End Solutions: From planning to completion for manufacturing plants and factories.
+                
+                
+                </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="info_contact">
+              <a href="https://www.google.co.in/maps/@18.579456,73.793536,11z?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +91 9890492000
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope"></i>
+                <span>
+                  WeR4U.sme@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h4>
+              Follow Us
+            </h4>
+            <div class="social_box">
+              <a href="https://www.facebook.com/p/WeR4U-100070868568101/">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.facebook.com/p/WeR4U-100070868568101/">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.linkedin.com/posts/rahul-amrutkar-85216214_wer4u-abhamsme-manufacturingplant-activity-7265773399048658945-1ZXI/">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.instagram.com/wer4u_sme_solutions/">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- end info_section -->
+    
+    
+    <!-- footer section -->
+    <footer class="footer_section">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">WeR4U SME Solutions</a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
+    
+    
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+    
+  </body>
+  </html>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeR4U SME SOLUTIONS</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #bbdefb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #ff6600;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            color: #0044cc;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #e65c00;
+        }
+
+        body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #000080;
+        padding: 10px 20px;
+    }
+    .navbar .logo {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .navbar .nav-links {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+    }
+    .navbar .nav-links li {
+        margin: 0 15px;
+    }
+    .navbar .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+    .navbar .nav-links a:hover {
+        color: #f4a261;
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header class="header_section innerpage_header">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+                <a class="navbar-brand" href="index.html">
+                    <span>WeR4U</span>
+                </a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto nav-links">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="service.html">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="properties.html">Properties</a></li>
+                        <li class="nav-item"><a class="nav-link" href="listing.html">Listing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="insurance.html">Insurance</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Insurance Form Section -->
+    <div class="container mt-5">
+        <h2>Insurance Application</h2>
+        <form action="process.php" method="POST">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="plan">Select Plan</label>
+                <select id="plan" name="plan" class="form-control" required>
+                    <option value="basic">Basic Plan</option>
+                    <option value="standard">Standard Plan</option>
+                    <option value="premium">Premium Plan</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Info Section -->
+    <section class="info_section mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <h4>WeR4U</h4>
+                    <p>WeR4U delivers practical, effective solutions backed by a robust network of expert business associates with over 50 years of combined experience.</p>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Company</h4>
+                    <p>Comprehensive, multi-dimensional services for the industrial and manufacturing sector.</p>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Contact Us</h4>
+                    <p><i class="fa fa-map-marker"></i> <a href="#">Location</a></p>
+                    <p><i class="fa fa-phone"></i> Call +91 9890492000</p>
+                    <p><i class="fa fa-envelope"></i> WeR4U.sme@gmail.com</p>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Follow Us</h4>
+                    <div class="social_box">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer_section text-center py-3">
+        <div class="container">
+            <p>&copy; <span id="displayYear"></span> All Rights Reserved By <a href="https://html.design/">WeR4U SME Solutions</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        document.getElementById("displayYear").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>

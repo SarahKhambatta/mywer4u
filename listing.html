@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeR4U SME SOLUTIONS</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("propertyForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                let title = document.getElementById("title").value.trim();
+                let description = document.getElementById("description").value.trim();
+                let price = document.getElementById("price").value.trim();
+                let image = document.getElementById("image").files[0];
+                
+                if (!title || !description || !price || !image) {
+                    alert("Please fill out all fields and upload an image.");
+                    return;
+                }
+                
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let propertyData = {
+                        id: Date.now(),
+                        title, 
+                        description, 
+                        price, 
+                        imageSrc: e.target.result
+                    };
+                    let properties = JSON.parse(localStorage.getItem("properties")) || [];
+                    properties.push(propertyData);
+                    localStorage.setItem("properties", JSON.stringify(properties));
+                    
+                    alert("Property added successfully!");
+                    document.getElementById("propertyForm").reset();
+                };
+                reader.readAsDataURL(image);
+            });
+        
+            // Load properties on properties.html
+            if (window.location.pathname.includes("properties.html")) {
+                let properties = JSON.parse(localStorage.getItem("properties")) || [];
+                let propertyList = document.getElementById("propertyList");
+                
+                function renderProperties() {
+                    propertyList.innerHTML = "";
+                    properties.forEach((prop, index) => {
+                        let card = document.createElement("div");
+                        card.classList.add("card");
+                        card.innerHTML = `
+                            <img src="${prop.imageSrc}" alt="Property Image" class="card-img">
+                            <div class="card-title">${prop.title}</div>
+                            <div class="card-desc">${prop.description}</div>
+                            <div class="card-price">Price: ${prop.price}</div>
+                            <button class="remove-btn" data-id="${prop.id}">Remove</button>
+                        `;
+                        propertyList.appendChild(card);
+                    });
+                }
+                
+                renderProperties();
+                
+                propertyList.addEventListener("click", function(event) {
+                    if (event.target.classList.contains("remove-btn")) {
+                        let propId = parseInt(event.target.getAttribute("data-id"));
+                        properties = properties.filter(prop => prop.id !== propId);
+                        localStorage.setItem("properties", JSON.stringify(properties));
+                        renderProperties();
+                    }
+                });
+            }
+        });
+        
+    </script>
+
+    
+<style>
+        
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #004aad;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+    .header img {
+        height: 40px;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+    }
+    .card {
+        background-color: white;
+        width: 300px;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .card img {
+        width: 250px;
+        height: 250px;
+        border-radius: 10px;
+    }
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff7f00;
+        margin-top: 10px;
+    }
+    .card-desc {
+        font-size: 14px;
+        color: #555;
+        margin-top: 10px;
+    }
+    .card-price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #004aad;
+        margin-top: 10px;
+    }
+    .btn {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background-color: #ff7f00;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        transition: background 0.3s;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background-color: #cc6600;
+    }
+    .details {
+        display: none;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000080;
+    padding: 10px 20px;
+}
+.navbar .logo {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+.navbar .nav-links li {
+    margin: 0 15px;
+}
+.navbar .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.navbar .nav-links a:hover {
+    color: #f4a261;
+}
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #004aad;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+    .header img { height: 40px; }
+    
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    h2 { text-align: center; color: #ff6600; }
+    
+    form {
+        background: #0056b3;
+        padding: 20px;
+        border-radius: 5px;
+        color: white;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 2px solid #ff6600;
+        border-radius: 5px;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #ff6600;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s, transform 0.2s;
+        font-size: 16px;
+    }
+    button:hover { background: #cc5200; transform: scale(1.05); }
+    .property-list {
+display: block; /* Ensure it takes up the full width */
+width: 100%;
+padding: 20px;
+box-sizing: border-box;
+}
+
+.property-item {
+background: #e6f2ff;
+padding: 15px;
+margin: 10px 0;
+border-radius: 5px;
+border-left: 5px solid #ff6600;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+position: relative;
+height: 150px; /* Adjust the height as needed */
+width: 100%; /* Ensures the item takes up the full width */
+}
+
+.property-item h3 { 
+color: #ff6600; 
+}
+
+.remove-btn {
+background: #cc0000;
+color: white;
+padding: 5px 10px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+position:relative;
+bottom: 5px;
+right: 5px;
+}
+
+.remove-btn:hover { 
+background: #990000; 
+}
+
+</style>
+</head>
+<body>
+    <header class="header_section">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="index.html">
+              <span style="color: #f4f4f4; text-decoration: solid; font-size: larger;">
+                WeR4U
+              </span>
+            </a>
+            <div class="" id="">
+              <nav class="navbar">
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="service.html">Contact Us</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="listing.html">Listing</a></li>
+                    <li><a href="insurance.html">Insurance</a></li>
+                </ul>
+            </nav>
+    
+            </div>
+          </nav>
+        </div>
+      </header>
+    <header class="header">
+        <img src="images/web1.png" alt="Logo 1">
+        Create a Listing
+        <img src="images/web2.png" alt="Logo 2">
+    </header>
+    
+    <div class="container">
+        <h2>Create a Listing</h2>
+    <div class="container">
+        <form id="propertyForm">
+            <input type="text" id="title" placeholder="Property Title" required>
+            <textarea id="description" placeholder="Property Description" required></textarea>
+            <input type="text" id="price" placeholder="Price" required>
+            <input type="file" id="image" accept="image/*" required>
+            <button type="submit">Add Property</button>
+        </form>
+    </div>
+    <footer class="footer_section">
+        <div class="container">
+            
+            <p>&copy; <span id="displayYear"></span> All Rights Reserved By <a href="https://html.design/">WeR4U SME Solutions</a></p>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>
